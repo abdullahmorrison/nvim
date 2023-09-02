@@ -42,4 +42,5 @@ packer.init({
 return packer.startup(function(use)
   use "wbthomason/packer.nvim"  -- Have packer manage itself
   use "nvim-lua/plenary.nvim"   -- Useful lua functions used by lots of plugins
+  use "folke/tokyonight.nvim"   -- colorscheme
 end)
