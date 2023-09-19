@@ -22,7 +22,7 @@ local keymap = vim.keymap.set
 --   command_mode = "c",
 
 -- explorer to the left
-keymap("n", "<leader>e", ":Lex 30 <cr>", opts)
+keymap("n", "<leader>e", ":Lex 10 <cr>", opts)
 
 -- Visual --
 -- Stay in indent mode
