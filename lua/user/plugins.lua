@@ -54,4 +54,8 @@ return packer.startup(function(use)
     -- Snippets
     use "L3MON4D3/LuaSnip"                   --snippet engine
     use "rafamadriz/friendly-snippets"       -- a bunch of snippets to use
+    
+    -- LSP
+    use "neovim/nvim-lspconfig"              -- enable LSP
+    use "williamboman/nvim-lsp-installer"    -- LSP installer
 end)
