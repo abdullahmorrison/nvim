@@ -68,6 +68,9 @@ return packer.startup(function(use)
         run = ":TSUpdate",                   -- auto update parsers after install
     }
 
+    -- Autopairs
+    use "windwp/nvim-autopairs"
+
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
