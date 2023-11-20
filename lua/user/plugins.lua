@@ -42,7 +42,7 @@ packer.init({
 return packer.startup(function(use)
     use "wbthomason/packer.nvim"             -- Have packer manage itself
     use "nvim-lua/plenary.nvim"              -- Useful lua functions used by lots of plugins
-    use "folke/tokyonight.nvim"              -- colorscheme
+    use "rebelot/kanagawa.nvim"              -- colorscheme
 
     -- code completion
     use  "hrsh7th/nvim-cmp"                  -- The completion plugin
@@ -70,6 +70,10 @@ return packer.startup(function(use)
 
     -- Autopairs
     use "windwp/nvim-autopairs"
+
+    -- Comments
+    use "numToStr/Comment.nvim"
+    use "JoosepAlviste/nvim-ts-context-commentstring"
 
     if PACKER_BOOTSTRAP then
         require("packer").sync()
