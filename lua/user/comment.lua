@@ -1,7 +1,7 @@
 local status_ok, comment = pcall(require, "Comment")
 if not status_ok then
-    vim.notify("Comment plugin failed to load")
-    return
+  vim.notify("Comment plugin failed to load")
+  return
 end
 
 comment.setup {
@@ -10,8 +10,8 @@ comment.setup {
 
     local status_utils_ok, utils = pcall(require, "ts_context_commentstring.utils")
     if not status_utils_ok then
-        vim.notify("ts_context_commentstring.utils failed to load")
-      return
+      vim.notify("ts_context_commentstring.utils failed to load")
+    return
     end
 
     local location = nil
