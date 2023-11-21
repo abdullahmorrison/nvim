@@ -84,6 +84,9 @@ return packer.startup(function(use)
     -- Git
     use "lewis6991/gitsigns.nvim"
 
+    -- Toggle Terminal
+    use "akinsho/toggleterm.nvim"
+
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
