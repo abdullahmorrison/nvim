@@ -77,6 +77,10 @@ return packer.startup(function(use)
     use "numToStr/Comment.nvim"
     use "JoosepAlviste/nvim-ts-context-commentstring"
 
+    -- File Explorer
+    use "nvim-tree/nvim-tree.lua"
+    use "nvim-tree/nvim-web-devicons"        -- explorer icons
+
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
