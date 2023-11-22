@@ -6,10 +6,9 @@ end
 
 nvim_tree.setup {
   on_attach = "default",
-  hijack_cursor = false,
+  hijack_cursor = true,
   auto_reload_on_write = true,
-  disable_netrw = false,
-  hijack_netrw = true,
+  disable_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   root_dirs = {},
   prefer_startup_root = false,
@@ -32,18 +31,6 @@ nvim_tree.setup {
     relativenumber = false,
     signcolumn = "yes",
     width = 30,
-    float = {
-      enable = false,
-      quit_on_focus_loss = true,
-      open_win_config = {
-        relative = "editor",
-        border = "rounded",
-        width = 30,
-        height = 30,
-        row = 1,
-        col = 1,
-      },
-    },
   },
   renderer = {
     add_trailing = false,
@@ -145,7 +132,7 @@ nvim_tree.setup {
     cygwin_support = false,
   },
   diagnostics = {
-    enable = false,
+    enable = true,
     show_on_dirs = false,
     show_on_open_dirs = true,
     debounce_delay = 50,
@@ -159,11 +146,6 @@ nvim_tree.setup {
       warning = "",
       error = "",
     },
-  },
-  modified = {
-    enable = false,
-    show_on_dirs = true,
-    show_on_open_dirs = true,
   },
   filters = {
     git_ignored = true,
