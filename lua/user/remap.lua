@@ -46,3 +46,7 @@ keymap("v", "p", '"_dP', opts) -- yank holds the same value after pasting over s
 
 -- explorer to the left
 keymap("n", "<leader>e", ":NvimTreeToggle <cr>", opts)
+
+-- Telescope
+keymap("n", "<leader>ff", ":Telescope find_files<cr>")
+keymap("n", "<leader>fg", ":Telescope live_grep<cr>")
