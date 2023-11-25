@@ -48,5 +48,7 @@ keymap("v", "p", '"_dP', opts) -- yank holds the same value after pasting over s
 keymap("n", "<leader>e", ":NvimTreeToggle <cr>", opts)
 
 -- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files<cr>")
-keymap("n", "<leader>fg", ":Telescope live_grep<cr>")
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", {desc = "Fuzzy find files"})
+keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", {desc = "Find string in cwd"})
+keymap("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", {desc = "Find string under cursor in cwd"})
+
