@@ -87,6 +87,9 @@ return packer.startup(function(use)
 
     -- Toggle Terminal
     use "akinsho/toggleterm.nvim"
+    
+    -- GitHub Copilot
+    use "github/copilot.vim"
 
     if PACKER_BOOTSTRAP then
         require("packer").sync()
