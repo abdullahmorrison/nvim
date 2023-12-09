@@ -71,6 +71,12 @@ return packer.startup(function(use)
         run = ":TSUpdate",                   -- auto update parsers after install
     }
 
+    -- Lualine
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
     -- Autopairs
     use "windwp/nvim-autopairs"
 
@@ -95,3 +101,4 @@ return packer.startup(function(use)
         require("packer").sync()
     end
 end)
+
