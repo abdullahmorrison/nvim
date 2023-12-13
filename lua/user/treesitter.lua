@@ -1,29 +1,17 @@
-local M = { }
-
-function M.config()
-  local treesitter = require "nvim-treesitter"
-  local configs = require "nvim-treesitter.configs"
-
-  configs.setup {
-    ensure_installed = { "all" }, -- put the language you want in this array
-    -- ensure_installed = "all", -- one of "all" or a list of languages
-    ignore_install = { "" },                                                       -- List of parsers to ignore installing
-    sync_install = false,                                                          -- install languages synchronously (only applied to `ensure_installed`)
-
-    highlight = {
-      enable = true,       -- false will disable the whole extension
-      disable = { "css" }, -- list of language that will be disabled
-    },
-    autopairs = {
-      enable = true,
-    },
-    indent = { enable = true },
-
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
-  }
+local status_ok, ts_config = pcall(require, "nvim-treesitter.configs")
+if not status_ok then
+  return
 end
+ts_config.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = { 
+    "c", "lua", "vim", "vimdoc", "query", -- required for nvim
+    "typescript", "javascript", "html", "css", -- web dev
+    "cpp", -- general
+  },
+  auto_install = true,
 
-return M
+  highlight = {
+    enable = true,
+  },
+}
