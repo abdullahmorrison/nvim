@@ -1,6 +1,6 @@
 local colorschemeName = "kanagawa"
 
-local status_ok, colorscheme = pcall(require, "kanagawa")
+local status_ok, colorscheme = pcall(require, colorschemeName)
 if not status_ok then
   vim.notify("colorshceme " .. colorschemeName .. " not found!")
   return
@@ -33,4 +33,4 @@ colorscheme.setup({
 })
 
 -- setup must be called before loading
-vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme " .. colorschemeName)
