@@ -4,7 +4,8 @@ local servers = {
 	"html",
 	"tsserver",
 	"jsonls",
-  "emmet_ls"
+  "emmet_ls",
+  "clangd"
 }
 
 local settings = {
