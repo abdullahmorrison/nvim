@@ -44,6 +44,7 @@ return packer.startup(function(use)
     use "nvim-lua/plenary.nvim"              -- Useful lua functions used by lots of plugins
     use "rebelot/kanagawa.nvim"              -- colorscheme
     use "stevearc/dressing.nvim"             -- improve cmd line input UI
+    use "nvimdev/dashboard-nvim"             -- startup greeter
 
     -- code completion
     use  "hrsh7th/nvim-cmp"                  -- The completion plugin
