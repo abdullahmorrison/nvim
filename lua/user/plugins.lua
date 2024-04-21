@@ -98,6 +98,9 @@ return packer.startup(function(use)
     -- GitHub Copilot
     use "github/copilot.vim"
 
+    -- Vim Tmux Navigator
+    use "christoomey/vim-tmux-navigator"
+
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
