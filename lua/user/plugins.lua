@@ -85,6 +85,13 @@ return packer.startup(function(use)
       requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
+    -- Markdown Preview
+    use({
+      "iamcco/markdown-preview.nvim",
+      run = "cd app && npm install",
+      setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },
+    })
+
     -- Autopairs
     use "windwp/nvim-autopairs"
 
