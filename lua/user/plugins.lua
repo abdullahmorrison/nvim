@@ -42,7 +42,7 @@ packer.init({
 return packer.startup(function(use)
     use "wbthomason/packer.nvim"             -- Have packer manage itself
     use "nvim-lua/plenary.nvim"              -- Useful lua functions used by lots of plugins
-    use "rebelot/kanagawa.nvim"              -- colorscheme
+    use "tiagovla/tokyodark.nvim"            -- colorscheme
     use "stevearc/dressing.nvim"             -- improve cmd line input UI
     use "laytan/cloak.nvim"                  -- hide .env values
 
