@@ -37,9 +37,9 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- split windows
-keymap("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
-keymap("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
-keymap("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
+keymap("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })     -- split window vertically
+keymap("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })   -- split window horizontally
+keymap("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })      -- make split windows equal width & height
 keymap("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 
 -- Resize with arrows
@@ -59,7 +59,6 @@ keymap("v", "p", '"_dP', opts) -- yank holds the same value after pasting over s
 keymap("n", "<leader>e", ":NvimTreeToggle <cr>", opts)
 
 -- Telescope
-keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", {desc = "Fuzzy find files"})
-keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", {desc = "Find string in cwd"})
-keymap("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", {desc = "Find string under cursor in cwd"})
-
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files" })
+keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
+keymap("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })

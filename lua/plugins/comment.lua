@@ -1,10 +1,4 @@
-local status_ok, comment = pcall(require, "Comment")
-if not status_ok then
-  vim.notify("Comment plugin failed to load")
-  return
-end
-
-comment.setup {
+local default_config = {
   pre_hook = function(ctx)
     local U = require "Comment.utils"
 
@@ -31,4 +25,10 @@ comment.setup {
       location = location,
     }
   end,
+}
+
+return {
+  'numToStr/Comment.nvim',
+  event = { "BufReadPre", "BufNewFile" },
+  opts = { default_config }
 }
