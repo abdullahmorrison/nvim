@@ -29,6 +29,8 @@ return {
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			-- lspconfig.[lsp].setup({ capabilities = capabilities })
 			lspconfig.lua_ls.setup({ capabilities = capabilities })
+      lspconfig.ts_ls.setup({ capabilities = capabilities })
+      lspconfig.cssls.setup({ capabilities = capabilities })
 
       vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {desc = "Show hover"})
       vim.keymap.set("n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {desc = "Go to declaration"})
