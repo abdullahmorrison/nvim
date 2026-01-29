@@ -56,7 +56,7 @@ keymap("v", ">", ">gv^", opts)
 keymap("v", "p", '"_dP', opts) -- yank holds the same value after pasting over some text
 
 -- explorer to the left
-keymap("n", "<leader>e", ":NvimTreeToggle <cr>", opts)
+keymap("n", "<leader>e", ":Neotree toggle=true <cr>", opts)
 
 -- Telescope
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files" })
