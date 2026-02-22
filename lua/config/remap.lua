@@ -10,11 +10,6 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
---Copilot
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_assume_mapped = true
-vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-
 -- Shorten function name
 local keymap = vim.keymap.set
 
@@ -52,16 +47,4 @@ keymap("n", "<C-Right>", ":vertical resize +5<CR>", opts)
 -- Stay in indent mode
 keymap("v", "<", "<gv^", opts)
 keymap("v", ">", ">gv^", opts)
-
 keymap("v", "p", '"_dP', opts) -- yank holds the same value after pasting over some text
-
--- explorer to the left
-keymap("n", "<leader>e", ":Neotree toggle=true <cr>", opts)
-
--- Telescope
-keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files" })
-keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-keymap("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-
--- Markdown
-keymap("n", "<leader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Markdown Preview" })
