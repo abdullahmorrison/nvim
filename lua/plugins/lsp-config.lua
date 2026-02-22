@@ -25,12 +25,22 @@ return {
 			"blink.cmp",
 		},
 		config = function()
-			local lspconfig = require("lspconfig")
+			local lspconfig = vim.lsp.config
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			-- lspconfig.[lsp].setup({ capabilities = capabilities })
-			lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.ts_ls.setup({ capabilities = capabilities })
-      lspconfig.cssls.setup({ capabilities = capabilities })
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
+            },
+          },
+        },
+      })
+      lspconfig("ts_ls", { capabilities = capabilities, })
+      lspconfig("cssls", { capabilities = capabilities, })
+
+      vim.lsp.enable({ "lua_ls", "ts_ls", "cssls" })
 
       vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {desc = "Show hover"})
       vim.keymap.set("n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {desc = "Go to declaration"})
