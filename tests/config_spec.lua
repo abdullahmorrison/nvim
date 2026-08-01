@@ -78,6 +78,43 @@ check("every plugin in lazy-lock.json is in the resolved spec", function()
   end
 end)
 
+-- Guards against a half-finished install being mistaken for a healthy one.
+-- lazy's async pipeline can be cut short (a quit that outruns it, an
+-- interrupted sync), leaving plugins cloned but not checked out or built. The
+-- config still boots in that state, so nothing else here would notice.
+check("every locked plugin is installed at its locked commit", function()
+  local lock = vim.fn.json_decode(table.concat(vim.fn.readfile("lazy-lock.json"), "\n"))
+  local root = require("lazy.core.config").options.root
+  local bad = {}
+  for name, entry in pairs(lock) do
+    -- lazy.nvim bootstraps itself from the `stable` branch, so its checkout is
+    -- not expected to match the lockfile.
+    if name ~= "lazy.nvim" then
+      local dir = root .. "/" .. name
+      if vim.fn.isdirectory(dir) == 0 then
+        table.insert(bad, name .. ": not installed")
+      else
+        local head = vim.trim(vim.fn.system({ "git", "-C", dir, "rev-parse", "HEAD" }))
+        if head ~= entry.commit then
+          table.insert(bad, ("%s: at %s, lockfile says %s"):format(name, head:sub(1, 8), entry.commit:sub(1, 8)))
+        end
+      end
+    end
+  end
+  if #bad > 0 then
+    error(table.concat(bad, "\n"), 0)
+  end
+end)
+
+check("plugins with build steps produced their artifacts", function()
+  local root = require("lazy.core.config").options.root
+  -- markdown-preview.nvim builds its browser frontend via yarn. Skip the build
+  -- and :MarkdownPreview opens a tab that never connects to anything.
+  if vim.fn.isdirectory(root .. "/markdown-preview.nvim/app/node_modules") == 0 then
+    error("markdown-preview.nvim: app/node_modules missing, its build step never ran", 0)
+  end
+end)
+
 io.write("\ncore settings\n")
 
 check("leader is space", function()

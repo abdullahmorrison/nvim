@@ -56,9 +56,18 @@ jobs:
 
       # Installs at the locked commits and runs every plugin's build step, so a
       # broken build command fails here rather than on someone's machine.
+      #
+      # Uses the Lua API rather than `+Lazy! restore` on purpose: with the
+      # command form, `+qa` can win the race against lazy's async pipeline and
+      # quit before the build tasks run. That fails silently -- plugins are
+      # cloned, so the config still boots and the assertions still pass, but
+      # nothing was ever built. `wait = true` is the only form that blocks.
       - name: Install plugins
         working-directory: config
-        run: nvim --headless "+Lazy! restore" +qa
+        run: |
+          nvim --headless -c 'lua require("lazy").restore({ wait = true })' \
+                          -c 'lua require("lazy").build({ wait = true })' \
+                          -c 'qa'
 
       # The config loads cleanly in a real session. Anything written to stderr --
       # a Lua error, a failed require, a deprecation warning -- fails the build.
