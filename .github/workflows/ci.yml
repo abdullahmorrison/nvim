@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A second push to a PR makes the first run's result irrelevant.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  boot:
+    name: boot (${{ matrix.nvim }})
+    runs-on: ubuntu-latest
+    # nightly is a canary for upstream breakage, not a merge gate.
+    continue-on-error: ${{ matrix.nvim == 'nightly' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        nvim: [stable, nightly]
+
+    steps:
+      - name: Check out config
+        uses: actions/checkout@v4
+        with:
+          path: config
+
+      - name: Install Neovim (${{ matrix.nvim }})
+        run: |
+          curl -fsSL -o nvim.tar.gz \
+            "https://github.com/neovim/neovim/releases/download/${{ matrix.nvim }}/nvim-linux-x86_64.tar.gz"
+          tar xzf nvim.tar.gz
+          echo "$PWD/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+
+      - name: Link config into place
+        run: |
+          mkdir -p ~/.config
+          ln -s "$GITHUB_WORKSPACE/config" ~/.config/nvim
+
+      - name: Report Neovim version
+        run: nvim --version
+
+      # Keyed on the lockfile: a plugin bump gets a cold install, everything else
+      # reuses the warm one. restore-keys keeps a bump from paying full price.
+      - name: Cache plugins
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/share/nvim
+            ~/.local/state/nvim
+          key: nvim-${{ matrix.nvim }}-${{ hashFiles('config/lazy-lock.json') }}
+          restore-keys: nvim-${{ matrix.nvim }}-
+
+      # Installs at the locked commits and runs every plugin's build step, so a
+      # broken build command fails here rather than on someone's machine.
+      #
+      # Uses the Lua API rather than `+Lazy! restore` on purpose: with the
+      # command form, `+qa` can win the race against lazy's async pipeline and
+      # quit before the build tasks run. That fails silently -- plugins are
+      # cloned, so the config still boots and the assertions still pass, but
+      # nothing was ever built. `wait = true` is the only form that blocks.
+      - name: Install plugins
+        working-directory: config
+        run: |
+          nvim --headless -c 'lua require("lazy").restore({ wait = true })' \
+                          -c 'lua require("lazy").build({ wait = true })' \
+                          -c 'qa'
+
+      # The config loads cleanly in a real session. Anything written to stderr --
+      # a Lua error, a failed require, a deprecation warning -- fails the build.
+      - name: Boot without errors
+        working-directory: config
+        run: |
+          output=$(nvim --headless +qa 2>&1)
+          if [ -n "$output" ]; then
+            echo "::error::startup wrote to stderr; a clean boot must be silent"
+            echo "$output"
+            exit 1
+          fi
+          echo "clean boot, no output"
+
+      # The config does what it says it does. See tests/config_spec.lua for why
+      # a boot check alone is not enough.
+      - name: Assert config intent
+        working-directory: config
+        run: nvim --headless -c 'luafile tests/config_spec.lua' -c 'qa!'
